@@ -16,8 +16,8 @@ router.get('/admin', authMiddleware(['admin']), (req, res) => {
 router.get('/instructor', authMiddleware(['instructor']), (req, res) => {
   res.json({ message: 'Welcome Instructor!' });
 });
-router.get('/student', authMiddleware(['student']), (req, res) => {
-  res.json({ message: 'Welcome Student!' });
+router.get('/learner', authMiddleware(['learner']), (req, res) => {
+  res.json({ message: 'Welcome Learner!' });
 });
 
 export default router;

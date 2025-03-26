@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 interface DecodedToken {
   id: string;
-  role: 'admin' | 'instructor' | 'student';
+  role: 'admin' | 'instructor' | 'learner';
 }
 
 export const authMiddleware = (roles: string[]) => {
@@ -19,8 +19,8 @@ export const authMiddleware = (roles: string[]) => {
       if (!roles.includes(decoded.role)) {
         return res.status(403).json({ message: 'Access denied' });
       }
-      // Optionally attach the decoded user info to the request object
-      (req as any).user = decoded;
+
+      (req as any).user = decoded; // Attach user info to request
       next();
     } catch (error) {
       res.status(401).json({ message: 'Invalid token' });

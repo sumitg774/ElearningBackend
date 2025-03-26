@@ -1,4 +1,3 @@
-// src/server.ts
 import express, { Request, Response } from 'express';
 import { config } from 'dotenv';
 import cors from 'cors';
@@ -6,8 +5,9 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes';
 import courseRoutes from './routes/courseRoutes';
 import path from 'path';
+import {roleMiddleware} from './controllers/roleMiddleware'; // Import middleware
 
-// Load environment variables from .env
+// Load environment variables
 config();
 
 // Connect to MongoDB
@@ -27,7 +27,8 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve static files from uploads folder
+app.use(roleMiddleware); // Apply role middleware globally
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api', userRoutes);
